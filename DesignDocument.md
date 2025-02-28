@@ -10,15 +10,204 @@ Place your class diagrams below. Make sure you check the file in the browser on 
 
 ### Provided Code
 
-Provide a class diagram for the provided code as you read through it.  For the classes you are adding, you will create them as a separate diagram, so for now, you can just point towards the interfaces for the provided code diagram.
+Provide a class diagram for the provided code as you read through it. For the classes you are adding, you will create them as a separate diagram, so for now, you can just point towards the interfaces for the provided code diagram.
 
+```mermaid
+classDiagram
+    class IPlanner {
+        <<interface>>
+        ~ filter(String filter) Stream~BoardGame~
+        ~ filter(String filter, GameData sortOn) Stream~BoardGame~
+        ~ filter(String filter, GameData sortOn, boolean ascending) Stream~BoardGame~
+        ~ reset() void
+    }
 
+    class Planner {
+    }
+
+    class BoardGame {
+        - String name
+        - int id
+        - int minPlayers
+        - int maxPlayers
+        - int minPlaytime
+        - int maxPlaytime
+        - double difficulty
+        - int rank
+        - double averageRating
+        - int yearPublished
+        + BoardGame(String name, int id, int minPlayers, int maxPlayers, int minPlaytime, int maxPlaytime, double difficulty, int rank, double averageRating, int yearPublished)
+        + getName() String
+        + getId() int
+        + getMinPlayers() int
+        + getMaxPlayers() int
+        + getMinPlaytime() int
+        + getMaxPlaytime() int
+        + getDifficulty() double
+        + getRank() int
+        + getRating() double
+        + getYearPublished() int
+        + toStringWIthInfo(GameData col) String
+        + toString() String
+        + equals(Object obj) boolean
+        + hashCode() int
+    }
+
+    class GameData {
+        <<enumeration>>
+        NAME
+        ID
+        RATING
+        DIFFICULTY
+        RANK
+        MIN_PLAYERS
+        MAX_PLAYERS
+        MIN_TIME
+        MAX_TIME
+        YEAR
+        - String columnName
+        + GameData(String columnName)
+        + getColumnName() String
+        + fromColumnName(String columnName) GameData
+        + fromString(String name) GameData
+    }
+
+    class Operations {
+        <<enumeration>>
+        EQUALS
+        NOT_EQUALS
+        GREATER_THAN
+        LESS_THAN
+        GREATER_THAN_EQUALS
+        LESS_THAN_EQUALS
+        CONTAINS
+        - String operator
+        + Operations(String operator)
+        + getOperator() String
+        + fromOperator(String operator) Operations
+        + getOperatorFromString(String operator) Operations
+    }
+
+    class IGameList {
+        <<interface>>
+        ~ String ADD_ALL
+        ~ getGameNames  List~String~
+        ~ clear() void
+        ~ count() int
+        ~ saveGame(String filename) void
+        ~ addToList(String str, Stream~BoardGame~ filtered) void
+        ~ removeFromList(String str) void
+    }
+
+    class GameList {
+
+    }
+
+    class GamesLoader {
+        + String DELIMITER
+        - GamesLoader()
+        + static loadGamesFile(String filename) Set~BoardGame~ 
+        - static toBoardGame(String line, Map<GameData, Integer> columnMap) BoardGame
+        - static processHeader(String header) Map<GameData, Integer>
+    }
+
+    class ConsoleApp {
+        - Scanner IN
+        - String DEFAULT_FILENAME
+        - Random RND
+        - Scanner current
+        - IGameList gameList
+        - IPlanner planner
+        + ConsoleApp(IGameList gameList, IPlanner planner)
+        + start() void
+        - randomNumber() void
+        - processHelp() void
+        - processFilter() void
+        - printFilterStream(Stream~BoardGame~ games, GameData sortON) void
+        - processListCommands() void
+        - printCurrentList() void
+        - nextCommand() ConsoleText
+        - remainder() String
+        - getInput(String format, Object... args) String
+        - printOutput(String format, Object... output) void
+    }
+
+    class ConsoleText {
+        <<enumeration>>
+        WELCOME
+        HELP
+        INVALID
+        GOODBYE
+        PROMPT
+        NO_FILTER
+        NO_GAMES_LIST
+        FILTERED_CLEAR
+        LIST_HELP
+        FILTER_HELP
+        INVALID_LIST
+        EASTER_EGG
+        CMD_EASTER_EGG
+        CMD_EXIT
+        CMD_HELP
+        CMD_QUESTION
+        CMD_FILTER
+        CMD_LIST
+        CMD_SHOW
+        CMD_ADD
+        CMD_REMOVE
+        CMD_CLEAR
+        CMD_SAVE
+        CMD_OPTION_ALL
+        CMD_SORT_OPTION
+        CMD_SORT_OPTION_DIRECTION_ASC
+        CMD_SORT_OPTION_DIRECTION_DESC
+        - Properties CTEXT
+        + toString() String
+        + static fromString(String str)$ ConsoleText
+    }
+
+    class BGArenaPlanner {
+        - String DEFAULT_COLLECTION
+        - BGArenaPlanner()
+        + main(String[] args) void
+    }
+
+    Planner ..|> IPlanner: implements
+    Planner --> "many" BoardGame: contains
+    GameList ..|> IGameList: implements
+    ConsoleApp --> ConsoleText : uses
+    ConsoleApp --> IGameList : uses
+    ConsoleApp --> IPlanner : uses
+    BGArenaPlanner --> IPlanner : creates
+    BGArenaPlanner --> IGameList : creates
+    BGArenaPlanner --> ConsoleApp : creates
+    BGArenaPlanner --> GamesLoader : uses
+```
 
 ### Your Plans/Design
 
 Create a class diagram for the classes you plan to create. This is your initial design, and it is okay if it changes. Your starting points are the interfaces. 
 
+```mermaid
+classDiagram
+    class Planner {
+        + filter(String filter) Stream~BoardGame~
+        + filter(String filter, GameData sortOn) Stream~BoardGame~
+        + filter(String filter, GameData sortOn, boolean ascending) Stream~BoardGame~
+        + reset() void
+        - parseStringtoIntegers(String str) List~Integer~
+    }
 
+    class GameList {
+        + getGameNames  List~String~
+        + clear() void
+        + count() int
+        + saveGame(String filename) void
+        + addToList(String str, Stream~BoardGame~ filtered) void
+        + removeFromList(String str) void
+        - parseStringtoIntegers(String str) List~Integer~
+    }
+```
 
 
 
