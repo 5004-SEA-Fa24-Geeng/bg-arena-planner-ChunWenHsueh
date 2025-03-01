@@ -1,6 +1,5 @@
 package student;
 
-
 import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -8,7 +7,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 /**
  * Data Class for the Board Game Object.
  * 
- * This class is considered immutable, as every value is both final, and can only be accessed
+ * This class is considered immutable, as every value is both final, and can
+ * only be accessed
  * through getters.
  */
 public class BoardGame {
@@ -36,14 +36,14 @@ public class BoardGame {
     /**
      * Constructor for the BoardGame object.
      * 
-     * @param name game name
-     * @param id unique identifier
-     * @param minPlayers minimum number of players
-     * @param maxPlayers maximum number of players
-     * @param minPlayTime minimum play time in minutes
-     * @param maxPlayTime maximum play time in minutes
-     * @param difficulty average difficulty of the game
-     * @param rank rank of the game
+     * @param name          game name
+     * @param id            unique identifier
+     * @param minPlayers    minimum number of players
+     * @param maxPlayers    maximum number of players
+     * @param minPlayTime   minimum play time in minutes
+     * @param maxPlayTime   maximum play time in minutes
+     * @param difficulty    average difficulty of the game
+     * @param rank          rank of the game
      * @param averageRating average rating of the game
      * @param yearPublished year the game was published
      */
@@ -106,7 +106,6 @@ public class BoardGame {
         return maxPlayTime;
     }
 
-
     /**
      * Get the minimum play time in minutes.
      * 
@@ -115,7 +114,6 @@ public class BoardGame {
     public int getMinPlayTime() {
         return minPlayTime;
     }
-
 
     /**
      * Get the average difficulty of the game.
@@ -126,7 +124,6 @@ public class BoardGame {
         return difficulty;
     }
 
-
     /**
      * Get the rank of the game. The rank is defined on its rankings in BGGeek.
      * 
@@ -136,7 +133,6 @@ public class BoardGame {
         return rank;
     }
 
-
     /**
      * Get the average rating of the game.
      * 
@@ -145,7 +141,6 @@ public class BoardGame {
     public double getRating() {
         return averageRating;
     }
-
 
     /**
      * Get the year the game was published.
@@ -205,8 +200,10 @@ public class BoardGame {
     /**
      * Check if two BoardGame objects are equal.
      * 
-     * Two BoardGame objects are considered equal if all fields are equal, except for the following:
-     * - minPlayers - maxPlayers - maxPlayTime - minPlayTime - difficulty - rank - averageRating -
+     * Two BoardGame objects are considered equal if all fields are equal, except
+     * for the following:
+     * - minPlayers - maxPlayers - maxPlayTime - minPlayTime - difficulty - rank -
+     * averageRating -
      * yearPublished
      * 
      * @param obj object to compare
@@ -222,7 +219,8 @@ public class BoardGame {
     /**
      * Get the hash code of the object.
      * 
-     * The hash code is based on all fields, except for the following: - minPlayers - maxPlayers -
+     * The hash code is based on all fields, except for the following: - minPlayers
+     * - maxPlayers -
      * maxPlayTime - minPlayTime - difficulty - rank - averageRating - yearPublished
      * 
      * @return hash code of the object
@@ -234,12 +232,61 @@ public class BoardGame {
                         "rank", "averageRating", "yearPublished"));
     }
 
+    /**
+     * Get the numeric value of the object based on the GameData enum.
+     * If the enum is not numeric, an IllegalArgumentException is thrown.
+     * 
+     * @param col GameData enum value
+     * @return numeric value of the object
+     */
+    public double getNumericValue(GameData col) throws IllegalArgumentException {
+        switch (col) {
+            case RATING:
+                return averageRating;
+            case DIFFICULTY:
+                return difficulty;
+            case RANK:
+                return rank;
+            case MIN_PLAYERS:
+                return minPlayers;
+            case MAX_PLAYERS:
+                return maxPlayers;
+            case MIN_TIME:
+                return minPlayTime;
+            case MAX_TIME:
+                return maxPlayTime;
+            case YEAR:
+                return yearPublished;
+            case ID:
+                return id;
+            default:
+                throw new IllegalArgumentException("Invalid column: " + col);
+        }
+    }
+
+    /**
+     * Get the string value of the object based on the GameData enum.
+     * If the enum is not string, an IllegalArgumentException is thrown.
+     * 
+     * @param col GameData enum value
+     * @return string value of the object
+     */
+    public String getStringValue(GameData col) throws IllegalArgumentException {
+        switch (col) {
+            case NAME:
+                return name;
+            default:
+                throw new IllegalArgumentException("Invalid column: " + col);
+        }
+    }
 
     /**
      * Simple main we used for testing.
      * 
-     * It is possible to include small mains in each class as you develop to test/practice different
-     * things you are working on. We left this in to demonstrate that it is possible to have a main
+     * It is possible to include small mains in each class as you develop to
+     * test/practice different
+     * things you are working on. We left this in to demonstrate that it is possible
+     * to have a main
      * across multiple classes.
      * 
      * @param args command line arguments
