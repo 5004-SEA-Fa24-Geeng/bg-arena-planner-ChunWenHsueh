@@ -45,7 +45,7 @@ public class Planner implements IPlanner {
      */
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
-        filter = filter.toLowerCase().replaceAll("\\s+", "");
+        filter = filter.toLowerCase().replaceAll("\\s", "");
         Stream<BoardGame> filteredStream = filteredGames.stream();
 
         // If filter is null or empty, return sorted games
