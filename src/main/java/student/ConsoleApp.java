@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.stream.Stream;
 import java.util.Random;
 
-
 /**
  * Primary application that makes use of the IGameList and IPlanner interfaces.
  * 
@@ -39,7 +38,7 @@ public class ConsoleApp {
     public ConsoleApp(IGameList gameList, IPlanner planner) {
         this.gameList = gameList;
         this.planner = planner;
-    }    
+    }
 
     /**
      * Start the console application.
@@ -155,8 +154,7 @@ public class ConsoleApp {
                         return; // leave early.
                     }
                 }
-
-                result = planner.filter(parts[0], sortON, ascending);  // NOTICE: sortON and ascending are used here.
+                result = planner.filter(parts[0], sortON, ascending); // NOTICE: sortON and ascending are used here.
             } else {
                 result = planner.filter(filter); // default sort
             }
@@ -277,7 +275,7 @@ public class ConsoleApp {
         return current != null && current.hasNext() ? current.nextLine().trim() : "";
     }
 
-    /** 
+    /**
      * Gets input from the client.
      * 
      * @param format the format string to print.
@@ -296,8 +294,7 @@ public class ConsoleApp {
         return IN.nextLine();
     }
 
-
-    /** 
+    /**
      * Prints output to the client.
      * 
      * We could call printf directly, but this gives us one location in case
