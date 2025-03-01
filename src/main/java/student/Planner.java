@@ -45,7 +45,6 @@ public class Planner implements IPlanner {
      */
     @Override
     public Stream<BoardGame> filter(String filter, GameData sortOn, boolean ascending) {
-        filter = filter.toLowerCase().replaceAll("\\s", "");
         Stream<BoardGame> filteredStream = filteredGames.stream();
 
         // If filter is null or empty, return sorted games
@@ -99,12 +98,12 @@ public class Planner implements IPlanner {
         // return original stream if column is invalid
         GameData column;
         try {
-            column = GameData.fromString(parts.get(0));
+            column = GameData.fromString(parts.get(0).trim());
         } catch (IllegalArgumentException e) {
             return filteredGames;
         }
 
-        String value = parts.get(1);
+        String value = parts.get(1).trim();
 
         // Apply the appropriate filter based on column type
         if (isNumericColumn(column)) {
