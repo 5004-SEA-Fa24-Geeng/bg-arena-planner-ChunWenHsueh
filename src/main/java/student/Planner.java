@@ -56,7 +56,7 @@ public class Planner implements IPlanner {
         // else process each requriement one by one
         List<String> filters = List.of(filter.split(","));
         for (String singleFilter : filters) {
-            filteredStream = filterSingleCondition(filteredStream, singleFilter);
+            filteredStream = filterSingleCondition(filteredStream, singleFilter.trim());
         }
         return sortGames(filteredStream, sortOn, ascending);
     }
